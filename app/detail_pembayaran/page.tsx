@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
-import { cartAPI, authAPI, orderAPI } from '@/lib/api';
+import { cartAPI, authAPI, orderAPI, paymentAPI } from '@/lib/api';
 import { formatRp } from '@/lib/utils';
 
 const fraunces = Fraunces({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-display' });
@@ -115,22 +115,7 @@ export default function DetailPembayaran() {
       const orderId = orderResult.order.id;
 
       // ⭐ 2. Create payment Midtrans ASLI - LANGSUNG PAKE FETCH
-      const token = localStorage.getItem('token');
-      const paymentResponse = await fetch('http://localhost:5000/api/payments/create-real', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ order_id: orderId })
-      });
-
-      if (!paymentResponse.ok) {
-        const errorData = await paymentResponse.json();
-        throw new Error(errorData.message || 'Gagal membuat pembayaran');
-      }
-
-      const paymentResult = await paymentResponse.json();
+     const paymentResult = await paymentAPI.createReal(orderId);
       console.log('✅ Payment created:', paymentResult);
 
       const { token: snapToken, redirect_url } = paymentResult;

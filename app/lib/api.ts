@@ -290,27 +290,35 @@ export const orderAPI = {
 
 // ==================== PAYMENT API ====================
 export const paymentAPI = {
-  // ⭐ FUNGSI UTAMA UNTUK CHECKOUT
-  create: async (order_id: number) => {
-    const result = await fetchWithAuth('/payments/create', {
+  // Midtrans Snap (REAL)
+  createReal: async (order_id: number) => {
+    return fetchWithAuth('/payments/create-real', {
       method: 'POST',
       body: JSON.stringify({ order_id }),
     });
-    return result;
   },
 
-  // Fungsi yang sudah ada
-  createTransaction: async (data: { alamat: string; telepon: string; kode_pos: string; email: string }) => {
-    const result = await fetchWithAuth('/payment/create-transaction', {
+  // jika masih dipakai di tempat lain
+  create: async (order_id: number) => {
+    return fetchWithAuth('/payments/create', {
+      method: 'POST',
+      body: JSON.stringify({ order_id }),
+    });
+  },
+
+  createTransaction: async (data: {
+    alamat: string;
+    telepon: string;
+    kode_pos: string;
+    email: string;
+  }) => {
+    return fetchWithAuth('/payment/create-transaction', {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    return result;
   },
 
-  // Cek status payment
   getStatus: async (order_id: number) => {
-    const result = await fetchWithAuth(`/payments/status/${order_id}`);
-    return result;
+    return fetchWithAuth(`/payments/status/${order_id}`);
   },
 };
