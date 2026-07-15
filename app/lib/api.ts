@@ -1,6 +1,7 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-console.log("API_URL =", API_URL);
+const API_URL = "https://toko-gitar-backend-production.up.railway.app/api";
 
+console.log("===== APP/LIB/API.TS DIPAKAI =====");
+console.log("API_URL =", API_URL);
 export interface Product {
   id: number;
   category_id: number;
