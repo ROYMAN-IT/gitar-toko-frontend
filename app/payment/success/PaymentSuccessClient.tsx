@@ -45,12 +45,12 @@ export default function PaymentSuccessClient() {
 
         <div className="mt-6 space-y-3">
           {orderId && (
-            <Link
-              href={`/orders/${orderId}`}
-              className="block w-full bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              📦 Lihat Detail Pesanan
-            </Link>
+          <Link
+  href={`/detailpemesanan/${orderId}`}
+  className="block w-full bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors"
+>
+  📦 Lihat Detail Pesanan
+</Link>
           )}
 
           <Link
